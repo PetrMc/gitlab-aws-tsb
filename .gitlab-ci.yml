@@ -30,8 +30,16 @@ default:
           
 
 stages:
+  - init
   - publish
   - deploy
+
+unit-init:
+  stage: init
+  script:
+    - sleep 3
+    - echo "unit-tests executed"
+    - tctl get tenants
 
 push_to_ecr:
   stage: publish
