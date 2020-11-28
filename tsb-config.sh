@@ -30,6 +30,7 @@ echo "CURRENT VERSION: "$CURRENT_VERSION
 echo "INIT WEIGHT: "$INIT_WEIGHT
 echo "NEW WEIGHT: "$NEW_WEIGHT
 
+kubectl get ns
 
 if [ $1 == "deploy" ];then
     export APP_VERSION=$CURRENT_VERSION && echo "APP VERSION: "$APP_VERSION
