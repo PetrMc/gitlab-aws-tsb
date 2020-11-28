@@ -58,7 +58,6 @@ push_to_ecr:
 
 bluegreen%20newversion:
   stage: deploy
-  when: manual
   script:
     - export INIT_WEIGHT=80 && export NEW_WEIGHT=20
     - eksctl utils write-kubeconfig --kubeconfig kubeconfig-$CLUSTER_NAME.yaml --cluster $CLUSTER_NAME --region $AWS_DEFAULT_REGION
