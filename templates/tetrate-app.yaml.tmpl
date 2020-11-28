@@ -3,7 +3,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: tetrate-app-v${APP_VERSION}
-  namespace: tetrate-app
   labels:
     version: v${APP_VERSION}
 spec:
