@@ -51,6 +51,13 @@ push_to_ecr:
           docker --version
           apk add --no-cache curl jq python3 py-pip && pip install awscli==1.18.154
   script:
+    - echo $
+
+Variable
+    - echo $AWS_ACCESS_KEY_ID
+    - echo $AWS_DEFAULT_REGION
+    - echo $AWS_SECRET_ACCESS_KEY
+    - echo $CLUSTER_NAME
     - $(aws ecr get-login --no-include-email --region $AWS_DEFAULT_REGION)
     - export ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
     - echo "ACCOUNT_ID= $ACCOUNT_ID"
