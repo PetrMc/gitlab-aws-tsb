@@ -51,9 +51,6 @@ push_to_ecr:
           docker --version
           apk add --no-cache curl jq python3 py-pip && pip install awscli==1.18.154
   script:
-    - echo $
-
-Variable
     - echo $AWS_ACCESS_KEY_ID
     - echo $AWS_DEFAULT_REGION
     - echo $AWS_SECRET_ACCESS_KEY
