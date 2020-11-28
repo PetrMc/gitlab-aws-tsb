@@ -2,21 +2,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: tetrate-app-v1
+  name: tetrate-app-v${APP_VERSION}
   namespace: tetrate-app
   labels:
-    version: ${APP_VERSION}
+    version: v${APP_VERSION}
 spec:
   replicas: 1
   selector:
     matchLabels:
       app: tetrate-app
-      version: ${APP_VERSION}
+      version: v${APP_VERSION}
   template:
     metadata:
       labels:
         app: tetrate-app
-        version: ${APP_VERSION}
+        version: v${APP_VERSION}
     spec:
       serviceAccountName: tetrate-app      
       containers:
