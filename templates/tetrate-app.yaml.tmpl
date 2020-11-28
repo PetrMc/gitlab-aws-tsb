@@ -1,0 +1,26 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tetrate-app-v1
+  namespace: tetrate-app
+  labels:
+    version: ${APP_VERSION}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tetrate-app
+      version: ${APP_VERSION}
+  template:
+    metadata:
+      labels:
+        app: tetrate-app
+        version: ${APP_VERSION}
+    spec:
+      serviceAccountName: tetrate-app      
+      containers:
+      - name: tetrate-app
+        image: ${ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/tetrate-app:${APP_VERSION}
+        ports:
+        - containerPort: 80

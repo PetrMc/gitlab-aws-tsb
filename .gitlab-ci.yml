@@ -41,10 +41,6 @@ push_to_ecr:
   image: docker:latest
   services:
     - docker:dind
-  before_script:
-      - |
-          docker --version
-          apk add --no-cache curl jq python3 py-pip && pip install awscli==1.18.154
   script:
     - $(aws ecr get-login --no-include-email --region $AWS_DEFAULT_REGION)
     - export ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
@@ -56,11 +52,11 @@ push_to_ecr:
     - docker tag $REPOSITORY_URL $ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/tetrate-app:latest
     - docker push $ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/tetrate-app:latest  
 
-deploy%25:
+bluegreen%20newversion:
   stage: deploy
   when: manual
   script:
-    - export INIT_WEIGHT=75 && export NEW_WEIGHT=25
+    - export INIT_WEIGHT=80 && export NEW_WEIGHT=20
     - eksctl utils write-kubeconfig --kubeconfig kubeconfig-$CLUSTER_NAME.yaml --cluster $CLUSTER_NAME --region $AWS_DEFAULT_REGION
     - export KUBECONFIG=${PWD}/kubeconfig-$CLUSTER_NAME.yaml
-    - chmod 775 pipeline.sh && ./pipeline.sh deploy
+    - chmod 775 tsb-config.sh && ./tsb-config.sh deploy
