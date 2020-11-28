@@ -61,16 +61,7 @@ push_to_ecr:
 
 bluegreen%20newversion:
   stage: deploy
-  services:
-    - docker:dind
-  before_script:
-    - |
-        docker --version
-        apk add --no-cache curl jq python3 py-pip && pip install awscli==1.18.154
-  script:
-    - $(aws ecr get-login --no-include-email --region $AWS_DEFAULT_REGION)
-    - export ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
-    - echo "ACCOUNT_ID= $ACCOUNT_ID"
+  script:    
     - export INIT_WEIGHT=80 && export NEW_WEIGHT=20
     - eksctl utils write-kubeconfig --kubeconfig kubeconfig-$CLUSTER_NAME.yaml --cluster $CLUSTER_NAME --region $AWS_DEFAULT_REGION
     - export KUBECONFIG=${PWD}/kubeconfig-$CLUSTER_NAME.yaml
