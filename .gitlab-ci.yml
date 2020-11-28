@@ -59,6 +59,9 @@ push_to_ecr:
 bluegreen%20newversion:
   stage: deploy
   script:
+    - $(aws ecr get-login --no-include-email --region $AWS_DEFAULT_REGION)
+    - export ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
+    - echo "ACCOUNT_ID= $ACCOUNT_ID"
     - export INIT_WEIGHT=80 && export NEW_WEIGHT=20
     - eksctl utils write-kubeconfig --kubeconfig kubeconfig-$CLUSTER_NAME.yaml --cluster $CLUSTER_NAME --region $AWS_DEFAULT_REGION
     - export KUBECONFIG=${PWD}/kubeconfig-$CLUSTER_NAME.yaml
