@@ -42,14 +42,14 @@ EOF
     kubectl apply -f deployment.yaml --record -n $NAMESPACE
 
        # # --- TSB Service route ---#
-        eval "cat <<EOF
-$(<templates/service-route.yaml.tmpl)
-EOF
-        " >service-route.yaml
-    tctl apply -f service-route.yaml
-
-    aws dynamodb put-item --table-name versioning \
-        --item '{"app_name": {"S": "'$APP_NAME'"}, "current_ver": {"S": "'$CURRENT_VERSION'"}, "init_ver": {"S": "'$INIT_VERSION'"}}'
+#         eval "cat <<EOF
+# $(<templates/service-route.yaml.tmpl)
+# EOF
+#         " >service-route.yaml
+#     tctl apply -f service-route.yaml
+# 
+#     aws dynamodb put-item --table-name versioning \
+#         --item '{"app_name": {"S": "'$APP_NAME'"}, "current_ver": {"S": "'$CURRENT_VERSION'"}, "init_ver": {"S": "'$INIT_VERSION'"}}'
 
 elif [ $1 == "destroy" ];then
     export APP_VERSION=$INIT_VERSION && echo "APP VERSION: "$APP_VERSION
