@@ -63,7 +63,6 @@ bluegreen%20newversion:
   stage: deploy
   before_script:
     - |
-        docker --version
         apk add --no-cache curl jq python3 py-pip && pip install awscli==1.18.154
   script:
     - $(aws ecr get-login --no-include-email --region $AWS_DEFAULT_REGION)
