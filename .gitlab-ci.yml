@@ -3,9 +3,6 @@ image : python:3.8.6-alpine3.11
 variables:
   DOCKER_DRIVER: overlay2
   APP_NAME: tetrate-app
-  TSB_PASS: Tetrate123
-  TSB_TENANT: tetrate
-  TSB_URL: gitlab-tsb.cx.tetrate.info
 
 default:
   before_script:
@@ -26,8 +23,6 @@ default:
           tctl config clusters set blog-gitlab-cluster --bridge-address $TSB_URL:8443
           tctl config profiles set blog-gitlab-env --cluster blog-gitlab-cluster --user gitlab-admin
           tctl config profiles set-current blog-gitlab-env
-
-          
 
 stages:
   - init
@@ -51,10 +46,6 @@ push_to_ecr:
           docker --version
           apk add --no-cache curl jq python3 py-pip && pip install awscli==1.18.154
   script:
-    - echo $AWS_ACCESS_KEY_ID
-    - echo $AWS_DEFAULT_REGION
-    - echo $AWS_SECRET_ACCESS_KEY
-    - echo $CLUSTER_NAME
     - $(aws ecr get-login --no-include-email --region $AWS_DEFAULT_REGION)
     - export ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
     - echo "ACCOUNT_ID= $ACCOUNT_ID"
