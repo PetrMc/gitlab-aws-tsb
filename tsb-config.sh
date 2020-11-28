@@ -43,7 +43,7 @@ EOF
 
        # # --- TSB Service route ---#
         eval "cat <<EOF
-$(<templates/service-route.yaml.template)
+$(<templates/service-route.yaml.tmpl)
 EOF
         " >service-route.yaml
     tctl apply -f service-route.yaml
