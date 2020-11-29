@@ -56,24 +56,23 @@ elif [ $1 == "destroy" ];then
 
     export INIT_VERSION=$CURRENT_VERSION
     export INIT_WEIGHT=100
+
+    # # --- TSB Service route ---#
     eval "cat <<EOF
-$(<templates/virtualrouter.yml.template)
+$(<templates/service-route.yaml.tmpl)
 EOF
-    " >virtualrouter.yml
-    kubectl apply -f virtualrouter.yml -n $NAMESPACE
+    " >service-route.yaml
+    tctl apply -f service-route.yaml
 
     # --- Deployment ---#
     eval "cat <<EOF
-$(<templates/deployment.yml.template)
+$(<templates/tetrate-app.yaml.tmpl)
 EOF
     " >deployment.yml
     kubectl delete -f deployment.yml -n $NAMESPACE
 
     eval "cat <<EOF
-$(<templates/virtualnode.yml.template)
-EOF
-    " >virtualnode.yml
-    kubectl delete -f virtualnode.yml -n $NAMESPACE
+
 
     aws dynamodb put-item --table-name versioning \
         --item '{"app_name": {"S": "'$APP_NAME'"}, "current_ver": {"S": "'$CURRENT_VERSION'"}, "init_ver": {"S": "'$CURRENT_VERSION'"}}'
