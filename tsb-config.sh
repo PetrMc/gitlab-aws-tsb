@@ -30,7 +30,6 @@ echo "CURRENT VERSION: "$CURRENT_VERSION
 echo "INIT WEIGHT: "$INIT_WEIGHT
 echo "NEW WEIGHT: "$NEW_WEIGHT
 
-kubectl get ns
 
 if [ $1 == "deploy" ];then
     export APP_VERSION=$CURRENT_VERSION && echo "APP VERSION: "$APP_VERSION
@@ -46,10 +45,10 @@ EOF
          eval "cat <<EOF
  $(<templates/service-route.yaml.tmpl)
  EOF
-         " >service-route.yaml
-     tctl apply -f service-route.yaml
+    " >service-route.yaml
+    tctl apply -f service-route.yaml
  
-     aws dynamodb put-item --table-name versioning \
+    aws dynamodb put-item --table-name versioning \
          --item '{"app_name": {"S": "'$APP_NAME'"}, "current_ver": {"S": "'$CURRENT_VERSION'"}, "init_ver": {"S": "'$INIT_VERSION'"}}'
 
 elif [ $1 == "destroy" ];then
