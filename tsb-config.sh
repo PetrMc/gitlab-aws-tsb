@@ -71,9 +71,6 @@ EOF
     " >deployment.yml
     kubectl delete -f deployment.yml -n $NAMESPACE
 
-    eval "cat <<EOF
-
-
     aws dynamodb put-item --table-name versioning \
         --item '{"app_name": {"S": "'$APP_NAME'"}, "current_ver": {"S": "'$CURRENT_VERSION'"}, "init_ver": {"S": "'$CURRENT_VERSION'"}}'
 fi
