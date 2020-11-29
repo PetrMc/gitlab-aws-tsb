@@ -11,9 +11,9 @@ spec:
   subsets:
   - name: init_version
     labels:
-      version: ${INIT_VERSION}
+      version: v${INIT_VERSION}
     weight: ${INIT_WEIGHT}
   - name: new_version
     labels:
-      version: ${APP_VERSION}
+      version: v${APP_VERSION}
     weight: ${NEW_WEIGHT}
