@@ -80,4 +80,4 @@ kill_previous:
   script:
     - eksctl utils write-kubeconfig --kubeconfig kubeconfig-$CLUSTER_NAME.yaml --cluster $CLUSTER_NAME --region $AWS_DEFAULT_REGION
     - export KUBECONFIG=${PWD}/kubeconfig-$CLUSTER_NAME.yaml
-    - chmod 775 pipeline.sh && ./pipeline.sh destroy
+    - chmod 775 tsb-config.sh && ./tsb-config.sh destroy
