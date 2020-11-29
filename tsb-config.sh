@@ -41,8 +41,8 @@ EOF
     " >deployment.yaml
     kubectl apply -f deployment.yaml --record -n $NAMESPACE
 
-       # # --- TSB Service route ---#
-         eval "cat <<EOF
+    # # --- TSB Service route ---#
+    eval "cat <<EOF
  $(<templates/service-route.yaml.tmpl)
  EOF
     " >service-route.yaml
