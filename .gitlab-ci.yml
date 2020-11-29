@@ -34,10 +34,6 @@ unit-init:
   script:
     - sleep 3
     - echo "unit-tests executed"
-    - echo $TSB_PASS
-    - echo $TSB_TENANT
-    - echo $TSB_URL
-    - tctl get tenants
 
 push_to_ecr:
   stage: publish
