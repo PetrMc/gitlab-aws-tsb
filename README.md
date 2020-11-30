@@ -10,4 +10,4 @@ Pre-req's
 - ECR repo called `tetrate-app` is created
 - IAM user created in the above steps has kubernetes access to application cluster - per https://docs.aws.amazon.com/eks/latest/userguide/add-user-role.html
 
-The demo video of the final result can be seen here: https://www.youtube.com/watch?v=OQGtnlCELoY 
+The demo video of the final result can be seen here: https://youtu.be/1dsijHzp2UA (unedited version here - https://www.youtube.com/watch?v=OQGtnlCELoY )
